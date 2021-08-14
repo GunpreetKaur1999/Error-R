@@ -5,7 +5,7 @@ name := "clickstream-pipeline"
 
 scalaVersion := "2.13.6"*/
 version := "1.0.0"
-scalaVersion := "2.11.8"
+scalaVersion := "2.11.12"
 
 val sparkVersion = "2.3.2"
 val jacksonCore = "2.6.7"

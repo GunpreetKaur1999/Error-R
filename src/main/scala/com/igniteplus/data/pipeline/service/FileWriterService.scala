@@ -5,7 +5,7 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 
 object FileWriterService {
 
-  def writeData (df: DataFrame,fileAdd: String, fileFormat: String)(implicit spark:SparkSession): Unit ={
+  def writeData (df: DataFrame,fileAdd: String, fileFormat: String): Unit ={
 
     try {
       df.write.format(fileFormat)

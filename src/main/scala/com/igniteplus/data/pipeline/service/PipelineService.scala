@@ -2,6 +2,7 @@ package com.igniteplus.data.pipeline.service
 
 import com.igniteplus.data.pipeline.cleanse.MessageCleanser
 import com.igniteplus.data.pipeline.constants.ApplicationConstants.{COLUMN_DUPLICATE_ITEMDATA, COLUMN_LOWERCASE_ITEMDATA, COLUMN_LOWERCASE_LOGDATA, COLUMN_ORDERBY_LOGDATA, COL_DATANAME_ITEMDATA, COL_DATANAME_LOGDATA, DATATYPE_ITEMDATA, DATATYPE_LOGDATA, FORMAT, ITEMDATA, LOGDATA, PRIMARY_KEY_ITEMDATA, PRIMARY_KEY_LOGDATA, WRITER_FILE}
+import com.igniteplus.data.pipeline.service.FileWriterService.writeData
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 object PipelineService {
@@ -12,6 +13,8 @@ object PipelineService {
     /************************** show both file data *************************************************/
     val itemDf: DataFrame  = FileReaderService.readData(ITEMDATA,FORMAT)
     val logDf: DataFrame = FileReaderService.readData(LOGDATA,FORMAT)
+    writeData(itemDf,"data/output/read.csv","csv")
+    itemDf.show()
 
 
     /*
@@ -29,11 +32,11 @@ object PipelineService {
 
      */
 
-    /************************** write rows with null values into seperate file **************************************/
-    val itemDfNotNull = MessageCleanser.checkForNullRow(itemDf,PRIMARY_KEY_ITEMDATA,WRITER_FILE,FORMAT)
-    val logDfNotNull = MessageCleanser.checkForNullRow(logDf,PRIMARY_KEY_LOGDATA,WRITER_FILE,FORMAT)
-    itemDfNotNull.show(false)
-    logDfNotNull.show(false)
+//    /************************** write rows with null values into seperate file **************************************/
+//    val itemDfNotNull = MessageCleanser.checkForNullRow(itemDf,PRIMARY_KEY_ITEMDATA,WRITER_FILE,FORMAT)
+//    val logDfNotNull = MessageCleanser.checkForNullRow(logDf,PRIMARY_KEY_LOGDATA,WRITER_FILE,FORMAT)
+//    itemDfNotNull.show(false)
+//    logDfNotNull.show(false)
 
     /*
     /**************************** deduplication *******************************************************************/
